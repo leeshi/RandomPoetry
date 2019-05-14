@@ -45,13 +45,14 @@ public class RecommendationListViewAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         //初始化单个view
         View viewPoetry = this.mInflater.inflate(R.layout.recommendation_item,null);
-        PoetryItem poetryItem = (PoetryItem) getItem(position);
+
+        PoetryItem poetryItem = listPoetryItem.get(position);
 
         TextView poetryView = viewPoetry.findViewById(R.id.poetry);
         TextView sourceView = viewPoetry.findViewById(R.id.source);
         //set数据
         poetryView.setText(poetryItem.getContent());
-        poetryView.setText(poetryItem.getPoet() + ":" + poetryItem.getTitle());
+        sourceView.setText(poetryItem.getPoet() + ":" + poetryItem.getTitle());
 
         return viewPoetry;
     }

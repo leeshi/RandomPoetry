@@ -12,6 +12,9 @@ import android.widget.ListView;
 
 import com.lishi.adruino.randompoetry.adapter.RecommendationListViewAdapter;
 import com.lishi.adruino.randompoetry.item.PoetryItem;
+import com.lishi.adruino.randompoetry.model.RecommendationsCrawlerImpl;
+import com.lishi.adruino.randompoetry.presenter.RandomPoetryPresenter;
+import com.lishi.adruino.randompoetry.presenter.RandomPoetryPresenterImpl;
 import com.lishi.adruino.randompoetry.view.RecommendationView;
 
 import java.util.ArrayList;
@@ -28,10 +31,6 @@ public class ScrollingActivity extends AppCompatActivity implements Recommendati
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mRecommendationListViewAdapter = new RecommendationListViewAdapter(this,new ArrayList<PoetryItem>());
-        recommListView = findViewById(R.id.recommendations);
-        recommListView.setAdapter(mRecommendationListViewAdapter);
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,6 +39,14 @@ public class ScrollingActivity extends AppCompatActivity implements Recommendati
                         .setAction("Action", null).show();
             }
         });
+
+        mRecommendationListViewAdapter = new RecommendationListViewAdapter(this,new ArrayList<PoetryItem>());
+        recommListView = findViewById(R.id.recommendations);
+        recommListView.setAdapter(mRecommendationListViewAdapter);
+
+        RandomPoetryPresenter randomPoetryPresenter = new RandomPoetryPresenterImpl();
+        randomPoetryPresenter.onCreate(this,new RecommendationsCrawlerImpl());
+        randomPoetryPresenter.onProcess();
     }
 
     @Override
@@ -85,6 +92,7 @@ public class ScrollingActivity extends AppCompatActivity implements Recommendati
 
     @Override
     public void toMainActivity(List<PoetryItem> listData) {
-
+        mRecommendationListViewAdapter.update(listData);
+        mRecommendationListViewAdapter.notifyDataSetChanged();
     }
 }
