@@ -12,10 +12,12 @@ import android.widget.ListView;
 
 import com.lishi.adruino.randompoetry.adapter.RecommendationListViewAdapter;
 import com.lishi.adruino.randompoetry.item.PoetryItem;
+import com.lishi.adruino.randompoetry.view.RecommendationView;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class ScrollingActivity extends AppCompatActivity {
+public class ScrollingActivity extends AppCompatActivity implements RecommendationView {
     private ListView recommListView;
     private RecommendationListViewAdapter mRecommendationListViewAdapter;
 
@@ -59,5 +61,30 @@ public class ScrollingActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void showFailedError() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void loadSuccess() {
+
+    }
+
+    @Override
+    public void toMainActivity(List<PoetryItem> listData) {
+
     }
 }
