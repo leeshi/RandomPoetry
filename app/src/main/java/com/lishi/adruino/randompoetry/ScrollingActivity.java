@@ -26,7 +26,7 @@ public class ScrollingActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mRecommendationListViewAdapter = new RecommendationListViewAdapter(this,null);
+        mRecommendationListViewAdapter = new RecommendationListViewAdapter(this,new ArrayList<PoetryItem>());
         recommListView = findViewById(R.id.recommendations);
         recommListView.setAdapter(mRecommendationListViewAdapter);
 
