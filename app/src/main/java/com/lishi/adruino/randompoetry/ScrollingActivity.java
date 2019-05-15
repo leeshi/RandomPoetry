@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.lishi.adruino.randompoetry.adapter.RecommendationListViewAdapter;
 import com.lishi.adruino.randompoetry.item.PoetryItem;
@@ -23,6 +24,9 @@ import java.util.List;
 public class ScrollingActivity extends AppCompatActivity implements RecommendationView {
     private ListView recommListView;
     private RecommendationListViewAdapter mRecommendationListViewAdapter;
+
+    private TextView sentenceTextView;
+    private TextView fromTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,9 @@ public class ScrollingActivity extends AppCompatActivity implements Recommendati
                         .setAction("Action", null).show();
             }
         });
+
+        fromTextView = findViewById(R.id.from);
+        sentenceTextView = findViewById(R.id.sentence);
 
         mRecommendationListViewAdapter = new RecommendationListViewAdapter(this,new ArrayList<PoetryItem>());
         recommListView = findViewById(R.id.recommendations);
@@ -92,7 +99,9 @@ public class ScrollingActivity extends AppCompatActivity implements Recommendati
 
     @Override
     public void toMainActivity(List<PoetryItem> listData) {
-        mRecommendationListViewAdapter.update(listData);
+        mRecommendationListViewAdapter.update(listData.subList(0,listData.size() - 1));
         mRecommendationListViewAdapter.notifyDataSetChanged();
+        fromTextView.setText( "--" + listData.get(listData.size() - 1).getPoet());
+        sentenceTextView.setText(listData.get(listData.size() - 1).getContent());
     }
 }

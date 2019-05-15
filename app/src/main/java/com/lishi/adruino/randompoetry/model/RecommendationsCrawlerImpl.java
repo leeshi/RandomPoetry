@@ -9,8 +9,6 @@ import org.json.JSONObject;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,6 +29,14 @@ public class RecommendationsCrawlerImpl implements Crawler{
                 JSONObject json = new JSONObject(doc.text());
 
                 listData.add(new PoetryItem(json.getString("content"),json.getString("origin"),json.getString("author")));
+                //测试内容而已
+                listData.add(new PoetryItem("这是黑夜的儿子，沉浸于冬天，倾心死亡","春天，十个海子","海子"));
+                listData.add(new PoetryItem("我有一所房子，面朝大海，春暖花开。","面朝大海，春暖花开","海子"));
+
+                conn = Jsoup.connect("https://v1.hitokoto.cn/").ignoreContentType(true);
+                doc = Jsoup.parse(conn.get().html());
+                json = new JSONObject(doc.text());
+                listData.add(new PoetryItem(json.getString("hitokoto"),json.getString("from"),json.getString("creator")));
 
                 onLoadListener.loadSuccess(listData);
             }catch (IOException e){

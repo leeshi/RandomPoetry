@@ -52,7 +52,7 @@ public class RecommendationListViewAdapter extends BaseAdapter {
         TextView sourceView = viewPoetry.findViewById(R.id.source);
         //set数据
         poetryView.setText(poetryItem.getContent());
-        sourceView.setText(poetryItem.getPoet() + ":" + poetryItem.getTitle());
+        sourceView.setText(poetryItem.getPoet() + "《" + poetryItem.getTitle()+"》");
 
         return viewPoetry;
     }
