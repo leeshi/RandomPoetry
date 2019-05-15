@@ -1,5 +1,6 @@
 package com.lishi.adruino.randompoetry;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,8 +9,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lishi.adruino.randompoetry.adapter.RecommendationListViewAdapter;
 import com.lishi.adruino.randompoetry.item.PoetryItem;
@@ -54,6 +58,14 @@ public class ScrollingActivity extends AppCompatActivity implements Recommendati
         RandomPoetryPresenter randomPoetryPresenter = new RandomPoetryPresenterImpl();
         randomPoetryPresenter.onCreate(this,new RecommendationsCrawlerImpl());
         randomPoetryPresenter.onProcess();
+
+        //点击监听
+        //TODO 启动别的页面
+        recommListView.setOnItemClickListener((AdapterView<?> arg0, View arg1, int arg2,
+                                               long arg3)->{
+            PoetryItem poetryItem = (PoetryItem) recommListView.getItemAtPosition(arg2);
+            Toast.makeText(ScrollingActivity.this,poetryItem.toString(),Toast.LENGTH_LONG).show();
+        });
     }
 
     @Override
@@ -101,7 +113,7 @@ public class ScrollingActivity extends AppCompatActivity implements Recommendati
     public void toMainActivity(List<PoetryItem> listData) {
         mRecommendationListViewAdapter.update(listData.subList(0,listData.size() - 1));
         mRecommendationListViewAdapter.notifyDataSetChanged();
-        fromTextView.setText( "--" + listData.get(listData.size() - 1).getPoet());
+        fromTextView.setText( "————" + listData.get(listData.size() - 1).getPoet());
         sentenceTextView.setText(listData.get(listData.size() - 1).getContent());
     }
 }

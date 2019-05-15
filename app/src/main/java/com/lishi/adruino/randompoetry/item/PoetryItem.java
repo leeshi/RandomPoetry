@@ -22,5 +22,10 @@ public class PoetryItem {
     public String getPoet(){
         return this.mPoet;
     }
+
+    @Override
+    public String toString(){
+        return mTitle + mPoet + mContent;
+    }
 }
 
