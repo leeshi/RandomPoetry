@@ -1,6 +1,5 @@
 package com.lishi.adruino.randompoetry.model;
 
-import com.google.gson.Gson;
 import com.lishi.adruino.randompoetry.item.PoetryItem;
 
 import org.json.JSONArray;
@@ -14,28 +13,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class RecommendationsCrawlerImpl implements Crawler{
-    private final String tarUrl = "https://api.gushi.ci/all.json";
+    private final String tarUrl = "http://10.21.184.37:8888";
 
     @Override
     public void search(OnLoadListener onLoadListener) {
         new Thread(()->{
             System.out.println();
             try{
-                Connection conn = Jsoup.connect(tarUrl).ignoreContentType(true).header("user-agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36");
+                Connection conn = Jsoup.connect(tarUrl).ignoreContentType(true).header("user-agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36").timeout(3000);
                 Document doc = Jsoup.parse(conn.get().html());
 
                 ArrayList<PoetryItem> listData = new ArrayList<>();
 
-                JSONObject json = new JSONObject(doc.text());
-
-                listData.add(new PoetryItem(json.getString("content"),json.getString("origin"),json.getString("author")));
-                //测试内容而已
-                listData.add(new PoetryItem("这是黑夜的儿子，沉浸于冬天，倾心死亡","春天，十个海子","海子"));
-                listData.add(new PoetryItem("我有一所房子，面朝大海，春暖花开。","面朝大海，春暖花开","海子"));
+                JSONObject out_json = new JSONObject(doc.text());
+                JSONArray jsons = out_json.getJSONArray("data");
+                for(int i = 0;i < jsons.length();i++){
+                    JSONObject json = jsons.getJSONObject(i);
+                    listData.add(new PoetryItem(json.getString("content"),json.getString("origin"),json.getString("author")));
+                }
 
                 conn = Jsoup.connect("https://v1.hitokoto.cn/").ignoreContentType(true);
                 doc = Jsoup.parse(conn.get().html());
-                json = new JSONObject(doc.text());
+                JSONObject json = new JSONObject(doc.text());
                 listData.add(new PoetryItem(json.getString("hitokoto"),json.getString("from"),json.getString("creator")));
 
                 onLoadListener.loadSuccess(listData);
