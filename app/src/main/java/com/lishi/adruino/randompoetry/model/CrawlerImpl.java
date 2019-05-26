@@ -42,7 +42,7 @@ public class CrawlerImpl implements Crawler{
                 else{
                     Connection conn = Jsoup.connect(tarUrl).ignoreContentType(true).timeout(3000);
                     String couplet = (String)onLoadListener.getLoadOption();
-                    Document doc = Jsoup.parse(conn.postDataCharset(couplet).get().html());
+                    Document doc = Jsoup.parse(conn.data("data",couplet).post().html());
 
                     JSONObject jsonObject = new JSONObject(doc.text());
                     onLoadListener.loadSuccess(jsonObject.getString("nextcouplet"));
