@@ -1,15 +1,14 @@
 package com.lishi.adruino.randompoetry;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,8 +16,8 @@ import android.widget.Toast;
 
 import com.lishi.adruino.randompoetry.adapter.RecommendationListViewAdapter;
 import com.lishi.adruino.randompoetry.item.PoetryItem;
-import com.lishi.adruino.randompoetry.model.RecommendationsCrawlerImpl;
-import com.lishi.adruino.randompoetry.presenter.RandomPoetryPresenter;
+import com.lishi.adruino.randompoetry.model.CrawlerImpl;
+import com.lishi.adruino.randompoetry.presenter.Presenter;
 import com.lishi.adruino.randompoetry.presenter.RandomPoetryPresenterImpl;
 import com.lishi.adruino.randompoetry.view.RecommendationView;
 
@@ -31,6 +30,11 @@ public class ScrollingActivity extends AppCompatActivity implements Recommendati
 
     private TextView sentenceTextView;
     private TextView fromTextView;
+
+    //上下联
+    private me.grantland.widget.AutofitTextView firstTextView;
+    private me.grantland.widget.AutofitTextView secondTextView;
+    private TextInputEditText inputEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +58,24 @@ public class ScrollingActivity extends AppCompatActivity implements Recommendati
         mRecommendationListViewAdapter = new RecommendationListViewAdapter(this,new ArrayList<PoetryItem>());
         recommListView = findViewById(R.id.recommendations);
         recommListView.setAdapter(mRecommendationListViewAdapter);
+        Presenter randomPoetryPresenter = new RandomPoetryPresenterImpl();
+        randomPoetryPresenter.onCreate(this,new CrawlerImpl());
+        randomPoetryPresenter.onProcess(null);
+        //设置上下联
+        inputEditText = findViewById(R.id.couplet);
+        inputEditText.setOnEditorActionListener((v,actionID,keyEvent)->{
+            //TODO 先进行输入内容的检查
+            String couplet = inputEditText.getText().toString();
+            inputEditText.clearFocus();
+            inputEditText.setText("");
+            randomPoetryPresenter.onProcess(couplet);
+            firstTextView.setText(couplet);
+            return false;
+        });
 
-        RandomPoetryPresenter randomPoetryPresenter = new RandomPoetryPresenterImpl();
-        randomPoetryPresenter.onCreate(this,new RecommendationsCrawlerImpl());
-        randomPoetryPresenter.onProcess();
+        secondTextView = findViewById(R.id.first_couplet);
+        firstTextView = findViewById(R.id.second_couplet);
+
 
         //点击监听
         //TODO 启动别的页面
@@ -91,17 +109,17 @@ public class ScrollingActivity extends AppCompatActivity implements Recommendati
 
     @Override
     public void showLoading() {
-
+        Toast.makeText(this,"Loading",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showFailedError() {
-
+        Toast.makeText(this,"Failed to connect!",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void hideLoading() {
-
+        Toast.makeText(this,"Loading finish",Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -110,10 +128,16 @@ public class ScrollingActivity extends AppCompatActivity implements Recommendati
     }
 
     @Override
-    public void toMainActivity(List<PoetryItem> listData) {
-        mRecommendationListViewAdapter.update(listData.subList(0,listData.size() - 1));
-        mRecommendationListViewAdapter.notifyDataSetChanged();
-        fromTextView.setText( "————" + listData.get(listData.size() - 1).getPoet());
-        sentenceTextView.setText(listData.get(listData.size() - 1).getContent());
+    public void toMainActivity(Object data) {
+        //TODO 进行类型检查
+        if(List.class.isInstance(data)) {
+            List<PoetryItem> listData = (List<PoetryItem>) data;
+            mRecommendationListViewAdapter.update(listData.subList(0, listData.size() - 1));
+            mRecommendationListViewAdapter.notifyDataSetChanged();
+            fromTextView.setText("————" + listData.get(listData.size() - 1).getPoet());
+            sentenceTextView.setText(listData.get(listData.size() - 1).getContent());
+        }else if(String.class.isInstance(data)){
+            secondTextView.setText((String)data);
+        }
     }
 }

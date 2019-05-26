@@ -12,7 +12,43 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="15dip" >
+        android:paddingTop="15dip">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_couplet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            >
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/couplet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="上联"
+                    android:singleLine="true"/>
+
+                <me.grantland.widget.AutofitTextView
+                    android:id="@+id/first_couplet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+                <me.grantland.widget.AutofitTextView
+                    android:id="@+id/second_couplet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </android.support.design.widget.TextInputLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+        <!--占地用-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <android.support.v7.widget.CardView
             android:id="@+id/card_sentence"
@@ -61,8 +97,8 @@
 
         </android.support.v7.widget.CardView>
 
+        <!--占地用-->
         <TextView
-            android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

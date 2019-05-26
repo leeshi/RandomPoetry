@@ -2,14 +2,11 @@ package com.lishi.adruino.randompoetry.presenter;
 
 import android.os.Handler;
 
-import com.lishi.adruino.randompoetry.item.PoetryItem;
 import com.lishi.adruino.randompoetry.model.Crawler;
 import com.lishi.adruino.randompoetry.model.OnLoadListener;
 import com.lishi.adruino.randompoetry.view.RecommendationView;
 
-import java.util.List;
-
-public class RandomPoetryPresenterImpl implements RandomPoetryPresenter{
+public class RandomPoetryPresenterImpl implements Presenter {
     private RecommendationView mRecommendationView;
     private Crawler mCrawler;
     private Handler mHandler = new Handler();
@@ -36,14 +33,14 @@ public class RandomPoetryPresenterImpl implements RandomPoetryPresenter{
     }
 
     @Override
-    public void onProcess() {
+    public void onProcess(String loadOption) {
         mRecommendationView.showLoading();
         mCrawler.search(new OnLoadListener() {
             @Override
-            public void loadSuccess(List<PoetryItem> listData) {
+            public void loadSuccess(Object data) {
                 mHandler.post(()->{
                     mRecommendationView.hideLoading();
-                    mRecommendationView.toMainActivity(listData);
+                    mRecommendationView.toMainActivity(data);
                 });
             }
 
@@ -58,6 +55,11 @@ public class RandomPoetryPresenterImpl implements RandomPoetryPresenter{
             @Override
             public void loadOver() {
 
+            }
+
+            @Override
+            public Object getLoadOption() {
+                return loadOption;
             }
         });
     }

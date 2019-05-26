@@ -9,5 +9,5 @@ public interface RecommendationView {
     void showFailedError();
     void hideLoading();
     void loadSuccess();
-    void toMainActivity(List<PoetryItem> listData);
+    void toMainActivity(Object data);
 }
