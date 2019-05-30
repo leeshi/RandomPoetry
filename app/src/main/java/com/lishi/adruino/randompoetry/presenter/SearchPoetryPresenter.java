@@ -52,11 +52,7 @@ public class SearchPoetryPresenter {
 
             @Override
             public void loadOver(){
-                listAllPoetryItem.clear();
-                mHandler.post(()->{
-                    searchPoetryView.hideLoading();
-                    searchPoetryView.toMainActivity(listAllPoetryItem);
-                });
+                mHandler.post(()-> searchPoetryView.hideLoading());
             }
 
             @Override

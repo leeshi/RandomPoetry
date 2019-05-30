@@ -16,7 +16,6 @@ import java.util.List;
 
 public class PoetryCrawler implements PoetryCrawlerBiz{
     private final String mPoetryWebUrl = "https://so.gushiwen.org/search.aspx?";
-    private String mSearchType = "title";
     private int PageCount = 0;                  //当前搜索内容的总页数
     private int NowCount = 1;                   //当前搜索到的页数
 
@@ -43,14 +42,18 @@ public class PoetryCrawler implements PoetryCrawlerBiz{
             }
 
 
-            //test
-            System.out.println("ifSearched: "+searched);
-
             Log.d("CrawlerTargetUrl",TarUrl);
             try {
                 Connection conn = Jsoup.connect(TarUrl).timeout(3000);
                 Document doc = Jsoup.parse(conn.get().html());
                 Elements ListDiv = doc.getElementsByAttributeValue("class","sons");
+
+                //爬取不到任何诗词
+                if(ListDiv.isEmpty()){
+                    System.out.println("内容加载结束");
+                    searchListener.loadOver();
+                    return;
+                }
 
                 List<PoetryItem> list = new ArrayList<>();
 
@@ -71,7 +74,6 @@ public class PoetryCrawler implements PoetryCrawlerBiz{
                     return;
                 }
 
-                NowCount++;
                 for(Element element:ListDiv){
                     Element contson = element.getElementsByAttributeValue("class","contson").get(0);
                     Element source = element.getElementsByAttributeValue("class","source").get(0);
@@ -79,7 +81,9 @@ public class PoetryCrawler implements PoetryCrawlerBiz{
                     String AfterRe = contson.html().replaceAll("<br>","").replaceAll("</?[^>]+>","").replaceAll("\\(.*?\\)","");
                     list.add(new PoetryItem(AfterRe,title.text(),source.text()));
                 }
-                    searchListener.loadSuccess(list);
+                searchListener.loadSuccess(list);
+                //成功更新数据后再更新count，防止爬取出错
+                NowCount++;
             }
             catch(IOException e){
                 e.printStackTrace();
