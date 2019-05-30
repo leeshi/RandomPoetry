@@ -8,7 +8,7 @@ android {
     }
     defaultConfig {
         applicationId "com.lishi.adruino.randompoetry"
-        minSdkVersion 22
+        minSdkVersion 23
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -30,6 +30,11 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'org.jsoup:jsoup:1.11.3'
+
+    implementation 'com.android.support:cardview-v7:28.0.0'
+    implementation 'com.github.limuyang2:CardSearchView:1.1.0.1'
+    implementation 'com.lucasurbas:listitemview:1.1.1'
+
     implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.0'
     implementation 'me.grantland:autofittextview:0.2.+'
 }

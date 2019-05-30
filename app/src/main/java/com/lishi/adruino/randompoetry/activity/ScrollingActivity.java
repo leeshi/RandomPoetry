@@ -1,5 +1,6 @@
-package com.lishi.adruino.randompoetry;
+package com.lishi.adruino.randompoetry.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lishi.adruino.randompoetry.R;
 import com.lishi.adruino.randompoetry.adapter.RecommendationListViewAdapter;
 import com.lishi.adruino.randompoetry.item.PoetryItem;
 import com.lishi.adruino.randompoetry.model.CrawlerImpl;
@@ -47,8 +49,11 @@ public class ScrollingActivity extends AppCompatActivity implements Recommendati
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent();
+                intent.setClass(ScrollingActivity.this,MainActivity.class);
+                startActivity(intent);
+                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
             }
         });
 

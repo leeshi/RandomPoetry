@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MainActivity">
+
+
+    <android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:fitsSystemWindows="true">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/activity_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:titleTextColor="@android:color/white">
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <km.lmy.searchview.SearchView
+        app:cardElevation="5dp"
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="5dp"
+        app:defaultState="close"
+        app:hintText="input name"
+        >
+
+        <Button
+            android:id="@+id/search_option_button"
+            android:layout_width="72dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/searchView"
+            android:layout_alignEnd="@+id/search"
+            android:layout_marginStart="153dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="2dp"
+            android:elevation="6dp"
+            android:text="默认"
+
+            android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+
+    </km.lmy.searchview.SearchView>
+
+    <SearchView
+        android:id="@+id/search"
+        android:layout_width="47dp"
+        android:layout_height="45dp"
+        android:layout_alignEnd="@id/searchView"
+        android:layout_marginStart="328dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="-2dp"
+        android:elevation="4dp"
+        android:visibility="visible" />
+
+    <ListView
+        android:id="@+id/PoetryListView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchView"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="8dp"
+        android:divider="@null" />
+
+</RelativeLayout>
