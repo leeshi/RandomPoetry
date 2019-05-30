@@ -29,6 +29,9 @@ public class PoetryCrawler implements PoetryCrawlerBiz{
     public void SearchPoetry(int searchMode,boolean searched, String content, final OnLoadListener searchListener){
         new Thread( () ->{
             String TarUrl;
+            if(!searched)
+                NowCount = 1;
+
             if(searchMode == 1) {
                 TarUrl = this.mPoetryWebUrl + "type=author" + "&page=" + NowCount + "&value=" + content;
             }
@@ -42,9 +45,6 @@ public class PoetryCrawler implements PoetryCrawlerBiz{
 
             //test
             System.out.println("ifSearched: "+searched);
-
-            if(!searched)
-                NowCount = 1;
 
             Log.d("CrawlerTargetUrl",TarUrl);
             try {
