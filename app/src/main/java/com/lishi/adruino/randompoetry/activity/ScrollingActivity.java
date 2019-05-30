@@ -50,7 +50,7 @@ public class ScrollingActivity extends AppCompatActivity implements Recommendati
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
-                intent.setClass(ScrollingActivity.this,MainActivity.class);
+                intent.setClass(ScrollingActivity.this,DictionaryActivity.class);
                 startActivity(intent);
                 /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();*/

@@ -1,14 +1,23 @@
 package com.lishi.adruino.randompoetry.item;
 
 public class PoetryItem {
-    private String mContent;
-    private String mTitle;
-    private String mPoet;
+    public final String mContent;
+    public final String mTitle;
+    public final String mPoet;
+    public final String serial;
+
+    public PoetryItem(String content,String title,String poet,String serial){
+        this.mContent = content;
+        this.mPoet = poet;
+        this.mTitle = title;
+        this.serial = serial;
+    }
 
     public PoetryItem(String content,String title,String poet){
         this.mContent = content;
         this.mPoet = poet;
         this.mTitle = title;
+        serial = "";
     }
 
     /*getter

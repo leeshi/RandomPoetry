@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements SearchPoetryView 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_ACTION_BAR);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_search_poetry);
 
 
         //init toolbar

@@ -38,7 +38,7 @@ public class PoetryListViewAdapter extends BaseAdapter {
     }
     @Override
     public View getView(int position,View convertView,ViewGroup viewGroup){
-        View viewPoetry = this.mInflater.inflate(R.layout.poetry_item_layout, null);
+        View viewPoetry = this.mInflater.inflate(R.layout.search_poetry_item_layout, null);
         //获取item对象
         PoetryItem item = this.itemList.get(position);
         //获取自定义布局View对象
@@ -59,7 +59,7 @@ public class PoetryListViewAdapter extends BaseAdapter {
         if (convertView == null) {
 
             holder = new ViewHolder();
-            convertView = mInflater.inflate(R.layout.poetry_item_layout, null);
+            convertView = mInflater.inflate(R.layout.search_poetry_item_layout, null);
             holder.poetryView = (TextView) convertView.findViewById(R.id.poetryView);
             holder.poetView = (TextView) convertView.findViewById(R.id.poetView);
             holder.titleView = (TextView) convertView.findViewById(R.id.titleView);
