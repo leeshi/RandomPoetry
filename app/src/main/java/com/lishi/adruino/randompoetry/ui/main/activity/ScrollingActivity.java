@@ -22,6 +22,7 @@ import com.lishi.adruino.randompoetry.ui.main.model.CrawlerImpl;
 import com.lishi.adruino.randompoetry.presenter.Presenter;
 import com.lishi.adruino.randompoetry.ui.main.presenter.RandomPoetryPresenterImpl;
 import com.lishi.adruino.randompoetry.ui.main.view.RecommendationView;
+import com.lishi.adruino.randompoetry.ui.search.activity.SearchActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,21 +47,18 @@ public class ScrollingActivity extends AppCompatActivity implements Recommendati
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setClass(ScrollingActivity.this,DictionaryActivity.class);
-                startActivity(intent);
-                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
-            }
+        fab.setOnClickListener((v) -> {
+            Intent intent = new Intent();
+            intent.setClass(ScrollingActivity.this,SearchActivity.class);
+            startActivity(intent);
+            /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();*/
         });
 
         fromTextView = findViewById(R.id.from);
         sentenceTextView = findViewById(R.id.sentence);
 
-        mRecommendationListViewAdapter = new RecommendationListViewAdapter(this,new ArrayList<PoetryItem>());
+        mRecommendationListViewAdapter = new RecommendationListViewAdapter(this,new ArrayList<>());
         recommListView = findViewById(R.id.recommendations);
         recommListView.setAdapter(mRecommendationListViewAdapter);
         Presenter randomPoetryPresenter = new RandomPoetryPresenterImpl();

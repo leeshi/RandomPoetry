@@ -3,6 +3,7 @@ package com.lishi.adruino.randompoetry.ui.search.model;
 import android.util.Log;
 
 import com.lishi.adruino.randompoetry.item.PoetryItem;
+import com.lishi.adruino.randompoetry.model.Crawler;
 import com.lishi.adruino.randompoetry.model.OnLoadListener;
 
 import org.jsoup.Connection;
@@ -14,8 +15,9 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class PoetryCrawler implements PoetryCrawlerBiz{
+public class PoetryCrawler implements Crawler {
     private final String mPoetryWebUrl = "https://so.gushiwen.org/search.aspx?";
     private int PageCount = 0;                  //当前搜索内容的总页数
     private int NowCount = 1;                   //当前搜索到的页数
@@ -26,8 +28,14 @@ public class PoetryCrawler implements PoetryCrawlerBiz{
      * 2-> title
      */
     @Override
-    public void SearchPoetry(int searchMode,boolean searched, String content, final OnLoadListener searchListener){
+    public void search(final OnLoadListener searchListener){
         new Thread( () ->{
+            //初始化搜索选项
+            Map<String,Object> options = (Map<String,Object>)searchListener.getLoadOption();
+            boolean searched = (Boolean) options.get("searched");
+            int searchMode = (Integer)options.get("mode");
+            String content = (String)options.get("content");
+
             String TarUrl;
             if(!searched)
                 NowCount = 1;

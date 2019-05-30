@@ -29,7 +29,7 @@ public class SearchActivity extends AppCompatActivity implements SearchPoetryVie
     private km.lmy.searchview.SearchView mSearchView;
     private SearchView mSearchBut;
     private Toolbar activityToolbar;
-    private Button buttonSearchOpetion;
+    private Button buttonSearchOption;
 
     private PoetryListViewAdapter mPoetryListViewAdapter;
 
@@ -43,7 +43,7 @@ public class SearchActivity extends AppCompatActivity implements SearchPoetryVie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.requestWindowFeature(Window.FEATURE_ACTION_BAR);
+        //this.requestWindowFeature(Window.FEATURE_ACTION_BAR);
         setContentView(R.layout.activity_search_poetry);
 
 
@@ -54,18 +54,18 @@ public class SearchActivity extends AppCompatActivity implements SearchPoetryVie
         this.setSupportActionBar(activityToolbar);
 
         //init button
-        buttonSearchOpetion = findViewById(R.id.search_option_button);
-        buttonSearchOpetion.setOnClickListener((v)-> {
+        buttonSearchOption = findViewById(R.id.search_option_button);
+        buttonSearchOption.setOnClickListener((v)-> {
             mode++;
             switch (mode%3){
                 case 1:
-                    buttonSearchOpetion.setText("作者");
+                    buttonSearchOption.setText("作者");
                     return;
                 case 2:
-                    buttonSearchOpetion.setText("题目");
+                    buttonSearchOption.setText("题目");
                     return;
                 case 0:
-                    buttonSearchOpetion.setText("模糊");
+                    buttonSearchOption.setText("模糊");
                     return;
             }
         });

@@ -9,7 +9,9 @@ import com.lishi.adruino.randompoetry.ui.search.model.PoetryCrawler;
 import com.lishi.adruino.randompoetry.ui.search.view.SearchPoetryView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SearchPoetryPresenter {
     private SearchPoetryView searchPoetryView;
@@ -25,7 +27,7 @@ public class SearchPoetryPresenter {
 
     public void search(){
         searchPoetryView.showLoading();
-        poetryCrawler.SearchPoetry(searchPoetryView.getMode(),searchPoetryView.ifSearched(), searchPoetryView.getContent(), new OnLoadListener(){
+        poetryCrawler.search(new OnLoadListener(){
             @Override
             public void loadSuccess(Object list) {
                 //如果是第一次搜索就把之前保存的信息清空
@@ -57,7 +59,11 @@ public class SearchPoetryPresenter {
 
             @Override
             public Object getLoadOption() {
-                return null;
+                Map<String,Object> options = new HashMap<>();
+                options.put("mode",searchPoetryView.getMode());
+                options.put("searched",searchPoetryView.ifSearched());
+                options.put("content",searchPoetryView.getContent());
+                return options;
             }
         });
     }
