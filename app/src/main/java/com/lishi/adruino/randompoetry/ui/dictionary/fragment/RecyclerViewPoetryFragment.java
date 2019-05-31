@@ -17,7 +17,7 @@ import com.lishi.adruino.randompoetry.ui.dictionary.view.DetailedPoetryView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecyclerViewPoetryFragment extends Fragment implements DetailedPoetryView {
+public class RecyclerViewPoetryFragment extends Fragment implements DetailedPoetryView,RecyclerViewPoetryPagerAdapter.OnItemClickListener {
     public static Fragment newInstance(){return  new RecyclerViewPoetryFragment();}
     final List<Object> items = new ArrayList<>();
     private RecyclerViewPoetryPagerAdapter mViewPagerAdapter;
@@ -43,12 +43,14 @@ public class RecyclerViewPoetryFragment extends Fragment implements DetailedPoet
             items.add(new Object());
         }
 
-        mViewPagerAdapter = new RecyclerViewPoetryPagerAdapter(items,ITEMS);
+        mViewPagerAdapter = new RecyclerViewPoetryPagerAdapter(mRecyclerView,items,ITEMS);
+        mViewPagerAdapter.setOnItemClickListener(this);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.addItemDecoration(new MaterialViewPagerHeaderDecorator());
         mRecyclerView.setAdapter(mViewPagerAdapter);
+
     }
 
     @Override
@@ -79,5 +81,10 @@ public class RecyclerViewPoetryFragment extends Fragment implements DetailedPoet
     @Override
     public void getMode() {
         //TODO
+    }
+
+    @Override
+    public void onItemClick(RecyclerView parent, View view, int position) {
+        System.out.println(position);
     }
 }

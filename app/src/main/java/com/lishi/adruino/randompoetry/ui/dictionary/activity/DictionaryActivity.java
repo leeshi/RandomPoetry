@@ -1,5 +1,6 @@
 package com.lishi.adruino.randompoetry.ui.dictionary.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -22,17 +23,21 @@ import java.util.Map;
 
 public class DictionaryActivity extends AppCompatActivity implements MainPageView {
     private MaterialViewPager mViewPager;
-    Map<Integer,Integer> mapCardPerPage = new HashMap<>();
-    static final int TAPS = 5;
-    //Presenter
-    DetailedPoetryPresenter myPresenter;
+    private Map<Integer,Integer> mapCardPerPage = new HashMap<>();
 
+    private DetailedPoetryPresenter myPresenter;
+
+    private String serial;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dictionary);
 
+        //获取参数
+        Intent intent = this.getIntent();
+        serial = (String)intent.getStringExtra("serial");
+        //初始化ViewPager
         mViewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
 
         mapCardPerPage.put(0,1);
@@ -89,7 +94,9 @@ public class DictionaryActivity extends AppCompatActivity implements MainPageVie
 
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
         myPresenter = new DetailedPoetryPresenterImpl(this,poetryPagerAdapter.getFragmentViewList(),new DetailCrawlerImpl());
-        myPresenter.onCreate("ed3504a25e60");
+        if(serial != null){
+            myPresenter.onCreate(serial);
+        }
     }
 
     /*

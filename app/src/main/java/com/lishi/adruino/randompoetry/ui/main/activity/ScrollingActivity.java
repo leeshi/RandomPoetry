@@ -111,6 +111,9 @@ public class ScrollingActivity extends AppCompatActivity implements Recommendati
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent();
+            intent.setClass(this,SearchActivity.class);
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);

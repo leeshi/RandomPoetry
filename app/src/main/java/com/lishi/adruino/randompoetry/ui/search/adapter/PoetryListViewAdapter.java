@@ -51,48 +51,12 @@ public class PoetryListViewAdapter extends BaseAdapter {
         titleView.setText(item.getTitle());
 
         return viewPoetry;
-
-
-        /*PoetryItem item = this.itemList.get(position);
-        ViewHolder holder = null;
-
-        if (convertView == null) {
-
-            holder = new ViewHolder();
-            convertView = mInflater.inflate(R.layout.search_poetry_item_layout, null);
-            holder.poetryView = (TextView) convertView.findViewById(R.id.poetryView);
-            holder.poetView = (TextView) convertView.findViewById(R.id.poetView);
-            holder.titleView = (TextView) convertView.findViewById(R.id.titleView);
-
-
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
-
-        convertView.setTag(holder);
-        holder.poetView.setText(item.getPoet());
-        holder.poetryView.setText(item.getContent());
-        holder.titleView.setText(item.getTitle());
-
-        if(isFirst.get(position) == null|| isFirst.get(position)){
-            isFirst.put(position,false);
-            convertView.startAnimation(animation);
-        }
-
-        return convertView;*/
     }
 
     public void update(List<PoetryItem> list){
         this.itemList = list;
     }
 
-/*    class ViewHolder {
-        View divider;
 
-        TextView poetryView;
 
-        TextView poetView;
-
-        TextView titleView;
-    }*/
 }

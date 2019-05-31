@@ -1,5 +1,6 @@
 package com.lishi.adruino.randompoetry.ui.search.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.lishi.adruino.randompoetry.R;
+import com.lishi.adruino.randompoetry.ui.dictionary.activity.DictionaryActivity;
 import com.lishi.adruino.randompoetry.ui.search.adapter.PoetryListViewAdapter;
 import com.lishi.adruino.randompoetry.item.PoetryItem;
 import com.lishi.adruino.randompoetry.ui.search.presenter.SearchPoetryPresenter;
@@ -108,6 +110,17 @@ public class SearchActivity extends AppCompatActivity implements SearchPoetryVie
 
     public void initListView(){
         this.mPoetryListView = (ListView) findViewById(R.id.PoetryListView);
+        this.mPoetryListView.setOnItemClickListener((parent,view,position,id)->{
+            //启动详情页
+            Intent intent = new Intent();
+            intent.setClass(this,DictionaryActivity.class);
+            intent.putExtra("mode","serial");
+            PoetryItem selectedItem = (PoetryItem)mPoetryListViewAdapter.getItem(position);
+            intent.putExtra("serial",selectedItem.serial);
+            //test
+            System.out.println(selectedItem.mTitle+":"+selectedItem.serial);
+            startActivity(intent);
+        });
         this.mPoetryListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {

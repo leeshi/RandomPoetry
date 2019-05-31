@@ -26,18 +26,17 @@ import java.util.List;
  * Yes
  * **一个Presenter对应多个Adapter**
  */
-public class RecyclerViewPoetryPagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class RecyclerViewPoetryPagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener{
     private List<Object> contents;
     private final int mode;
     //每一个CardView对应一个TextView
     private List<TextView> listTextView = new ArrayList<>();
-    private RecyclerView recyclerView;
+    private RecyclerView mRecyclerView;
 
-    private OnRecyclerItemClickListener mOnItemClickListener;
-
-    public RecyclerViewPoetryPagerAdapter(List<Object> contents,int mode) {
+    public RecyclerViewPoetryPagerAdapter(RecyclerView recyclerView,List<Object> contents,int mode) {
         this.contents = contents;
         this.mode = mode;
+        this.mRecyclerView = recyclerView;
     }
     public int getItemCount() {
         return contents.size();
@@ -123,5 +122,25 @@ public class RecyclerViewPoetryPagerAdapter extends RecyclerView.Adapter<Recycle
         }
     }
 
+    /**
+     * 定义RecyclerView选项单击事件的回调接口
+     */
+    public interface OnItemClickListener{
+        //参数（父组件，当前单击的View,单击的View的位置，数据）
+        void onItemClick(RecyclerView parent,View view, int position);
+    }
+
+    private OnItemClickListener onItemClickListener;
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener){
+        this.onItemClickListener = onItemClickListener;
+    }
+    @Override
+    public void onClick(View v) {
+        System.out.println("dafsd");
+        int position = mRecyclerView.getChildAdapterPosition(v);
+        if (onItemClickListener!=null){
+            System.out.println(position);
+        }
+    }
 
 }

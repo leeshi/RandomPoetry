@@ -87,8 +87,13 @@ public class PoetryCrawler implements Crawler {
                     Element contson = element.getElementsByAttributeValue("class","contson").get(0);
                     Element source = element.getElementsByAttributeValue("class","source").get(0);
                     Element title = element.getElementsByTag("b").get(0);
-                    String AfterRe = contson.html().replaceAll("<br>","").replaceAll("</?[^>]+>","").replaceAll("\\(.*?\\)","");
-                    list.add(new PoetryItem(AfterRe,title.text(),source.text()));
+                    String AfterRe = contson.html().replaceAll("<br>","")
+                            .replaceAll("</?[^>]+>","")
+                            .replaceAll("\\(.*?\\)","");
+
+                    String serial = contson.id().replaceAll("contson","");
+
+                    list.add(new PoetryItem(AfterRe,title.text(),source.text(),serial));
                 }
                 searchListener.loadSuccess(list);
                 //成功更新数据后再更新count，防止爬取出错
