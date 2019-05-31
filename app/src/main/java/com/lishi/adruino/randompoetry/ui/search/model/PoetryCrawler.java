@@ -36,6 +36,11 @@ public class PoetryCrawler implements Crawler {
             int searchMode = (Integer)options.get("mode");
             String content = (String)options.get("content");
 
+            if(content.isEmpty()){
+                searchListener.loadOver();
+                return;
+            }
+
             String TarUrl;
             if(!searched)
                 NowCount = 1;

@@ -45,7 +45,6 @@ public class SearchActivity extends AppCompatActivity implements SearchPoetryVie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //this.requestWindowFeature(Window.FEATURE_ACTION_BAR);
         setContentView(R.layout.activity_search_poetry);
 
 
@@ -90,7 +89,7 @@ public class SearchActivity extends AppCompatActivity implements SearchPoetryVie
             SearchContent = this.mSearchView.getEditTextView().getText().toString();
             this.mSearchView.addOneHistory(SearchContent);
             searched = false;
-            this.mSearchPoetryPresenter.search();
+            this.mSearchPoetryPresenter.onProcess(null);
             this.mSearchView.getEditTextView().setText("");
             this.mSearchView.close();
         });
@@ -129,7 +128,7 @@ public class SearchActivity extends AppCompatActivity implements SearchPoetryVie
                         boolean toBottom = view.getLastVisiblePosition() == view.getCount() - 1;
                         if (toBottom) {
                             Log.d("ListView","到达底部");
-                            mSearchPoetryPresenter.search();
+                            mSearchPoetryPresenter.onProcess(null);
                         }
                         break;
                 }
@@ -182,10 +181,14 @@ public class SearchActivity extends AppCompatActivity implements SearchPoetryVie
     @Override
     public String getContent(){
         //TODO
-        //获取信息
-        //测试而已
-        //return this.SearchContent;
-        return SearchContent;
+        Intent intent = getIntent();
+        String content = intent.getStringExtra("sentence");
+        intent.removeExtra("sentence");
+        if(content == null) {
+            return SearchContent;
+        }else{
+            return content;
+        }
     }
 
     @Override

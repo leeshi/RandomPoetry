@@ -54,33 +54,8 @@ public class RecyclerViewPoetryFragment extends Fragment implements DetailedPoet
     }
 
     @Override
-    public void showFailedError() {
-        //TODO
-    }
-
-    @Override
     public void toPoetryFragment(List<Object> listData) {
         mViewPagerAdapter.update(listData);
-    }
-
-    @Override
-    public void hideLoading() {
-        //TODO
-    }
-
-    @Override
-    public void showLoading() {
-        //TODO
-    }
-
-    @Override
-    public void clearView() {
-        //TODO
-    }
-
-    @Override
-    public void getMode() {
-        //TODO
     }
 
     @Override

@@ -26,7 +26,6 @@
         app:viewpager_transparentToolbar="true"
         app:viewpager_animatedHeaderImage="true"
         app:viewpager_disableToolbar="false"
-
         />
 
 

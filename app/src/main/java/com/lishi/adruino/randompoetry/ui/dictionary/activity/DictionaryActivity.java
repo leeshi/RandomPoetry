@@ -10,9 +10,9 @@ import android.widget.TextView;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
 import com.lishi.adruino.randompoetry.R;
+import com.lishi.adruino.randompoetry.presenter.Presenter;
 import com.lishi.adruino.randompoetry.ui.dictionary.adapter.PoetryPagerAdapter;
 import com.lishi.adruino.randompoetry.ui.dictionary.model.DetailCrawlerImpl;
-import com.lishi.adruino.randompoetry.ui.dictionary.presenter.DetailedPoetryPresenter;
 import com.lishi.adruino.randompoetry.ui.dictionary.presenter.DetailedPoetryPresenterImpl;
 import com.lishi.adruino.randompoetry.ui.dictionary.view.MainPageView;
 
@@ -25,7 +25,7 @@ public class DictionaryActivity extends AppCompatActivity implements MainPageVie
     private MaterialViewPager mViewPager;
     private Map<Integer,Integer> mapCardPerPage = new HashMap<>();
 
-    private DetailedPoetryPresenter myPresenter;
+    private Presenter myPresenter;
 
     private String serial;
 
@@ -92,10 +92,15 @@ public class DictionaryActivity extends AppCompatActivity implements MainPageVie
         //默认加载所有Fragment，以便Presenter更新数据
         mViewPager.getViewPager().setOffscreenPageLimit(5);
 
+        //返回按钮
+        mViewPager.getToolbar().setNavigationOnClickListener((view)->{
+            DictionaryActivity.this.finish();
+        });
+        
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
         myPresenter = new DetailedPoetryPresenterImpl(this,poetryPagerAdapter.getFragmentViewList(),new DetailCrawlerImpl());
         if(serial != null){
-            myPresenter.onCreate(serial);
+            myPresenter.onProcess(serial);
         }
     }
 

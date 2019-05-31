@@ -4,7 +4,10 @@ package com.lishi.adruino.randompoetry.ui.search.presenter;
 import android.os.Handler;
 
 import com.lishi.adruino.randompoetry.item.PoetryItem;
+import com.lishi.adruino.randompoetry.model.Crawler;
 import com.lishi.adruino.randompoetry.model.OnLoadListener;
+import com.lishi.adruino.randompoetry.presenter.Presenter;
+import com.lishi.adruino.randompoetry.ui.main.view.RecommendationView;
 import com.lishi.adruino.randompoetry.ui.search.model.PoetryCrawler;
 import com.lishi.adruino.randompoetry.ui.search.view.SearchPoetryView;
 
@@ -13,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SearchPoetryPresenter {
+public class SearchPoetryPresenter implements Presenter {
     private SearchPoetryView searchPoetryView;
     private PoetryCrawler poetryCrawler;
     private Handler mHandler = new Handler();
@@ -25,7 +28,24 @@ public class SearchPoetryPresenter {
         this.searchPoetryView = searchPoetryView;
     }
 
-    public void search(){
+
+    @Override
+    public void onResume() {
+
+    }
+
+    @Override
+    public void onDestroy() {
+
+    }
+
+    @Override
+    public void onItemClick(int position) {
+
+    }
+
+    @Override
+    public void onProcess(String loadOption) {
         searchPoetryView.showLoading();
         poetryCrawler.search(new OnLoadListener(){
             @Override
@@ -66,9 +86,5 @@ public class SearchPoetryPresenter {
                 return options;
             }
         });
-    }
-
-    public void clear(){
-        searchPoetryView.clearPoetry();
     }
 }

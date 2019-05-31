@@ -5,6 +5,7 @@ import android.os.Handler;
 import com.lishi.adruino.randompoetry.item.PoetryItem;
 import com.lishi.adruino.randompoetry.model.Crawler;
 import com.lishi.adruino.randompoetry.model.OnLoadListener;
+import com.lishi.adruino.randompoetry.presenter.Presenter;
 import com.lishi.adruino.randompoetry.ui.dictionary.view.DetailedPoetryView;
 import com.lishi.adruino.randompoetry.ui.dictionary.view.MainPageView;
 
@@ -14,7 +15,7 @@ import java.util.List;
 /*
  * 此处，一个Presenter对应多个View，在对象构造时，将所有View都保存下来
  */
-public class DetailedPoetryPresenterImpl implements DetailedPoetryPresenter {
+public class DetailedPoetryPresenterImpl implements Presenter {
     List<DetailedPoetryView> listAllFragmentView;
     MainPageView mainActivity;
     Crawler DetailCrawler;
@@ -31,7 +32,7 @@ public class DetailedPoetryPresenterImpl implements DetailedPoetryPresenter {
     }
 
     @Override
-    public void onCreate(String serial){
+    public void onProcess(String serial){
         //TODO 显示正在加载
         DetailCrawler.search(new OnLoadListener() {
             @Override
@@ -70,7 +71,7 @@ public class DetailedPoetryPresenterImpl implements DetailedPoetryPresenter {
                         //TODO 修改这里的列表长度以适应每一个Fragment
                         case 0:
                             mHandler.post(()-> {
-                                    listAllFragmentView.get(0).toPoetryFragment(listData.subList(0,2));
+                                listAllFragmentView.get(0).toPoetryFragment(listData.subList(0,2));
                             });
                             continue;
                         case 1:

@@ -11,26 +11,35 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="15dip">
+        android:orientation="vertical">
 
         <android.support.v7.widget.CardView
             android:id="@+id/card_couplet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
+            app:cardElevation="6dp"
             >
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <!--输入区-->
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/couplet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="上联"
-                    android:singleLine="true"/>
+                    android:hint="点击输入"
+                    android:singleLine="true"
+                    android:textColor="@color/blue" />
 
+                <!--分割线-->
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:background="@android:color/darker_gray"  />
+
+                <!--对对联输出区-->
                 <me.grantland.widget.AutofitTextView
                     android:id="@+id/first_couplet"
                     android:layout_width="wrap_content"
@@ -48,14 +57,14 @@
         <!--占地用-->
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="8dp" />
 
         <android.support.v7.widget.CardView
             android:id="@+id/card_sentence"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp">
 
             <!--句子推送-->
             <RelativeLayout
@@ -100,7 +109,7 @@
         <!--占地用-->
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="8dp" />
 
 
         <!--诗句推送-->
@@ -108,8 +117,8 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp">
+            android:layout_marginRight="7dp"
+            android:layout_marginLeft="7dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -125,6 +134,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="15dp"/>
 
+                <!--ListView适应视差视图-->
                 <com.lishi.adruino.randompoetry.NestedListView
                     android:id="@+id/recommendations"
                     android:layout_width="match_parent"

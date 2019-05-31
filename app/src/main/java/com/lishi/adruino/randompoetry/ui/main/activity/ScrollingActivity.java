@@ -48,25 +48,34 @@ public class ScrollingActivity extends AppCompatActivity implements Recommendati
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        /*-----------------------悬浮按钮---------------------*/
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener((v) -> {
             Intent intent = new Intent();
-            intent.setClass(ScrollingActivity.this,DictionaryActivity.class);
+            intent.setClass(ScrollingActivity.this,SearchActivity.class);
             startActivity(intent);
-            /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();*/
         });
 
-        fromTextView = findViewById(R.id.from);
-        sentenceTextView = findViewById(R.id.sentence);
-
+        /*------------------------ListView-------------------*/
         mRecommendationListViewAdapter = new RecommendationListViewAdapter(this,new ArrayList<>());
         recommListView = findViewById(R.id.recommendations);
         recommListView.setAdapter(mRecommendationListViewAdapter);
-        Presenter randomPoetryPresenter = new RandomPoetryPresenterImpl();
-        randomPoetryPresenter.onCreate(this,new CrawlerImpl());
+        //点击监听
+        recommListView.setOnItemClickListener((AdapterView<?> arg0, View view, int position,
+                                               long arg3)->{
+            PoetryItem poetryItem = (PoetryItem) mRecommendationListViewAdapter.getItem(position);
+            //添加启动参数
+            Intent intent = new Intent();
+            intent.putExtra("sentence",poetryItem.mContent);
+            intent.setClass(this,SearchActivity.class);
+            startActivity(intent);
+        });
+
+        /*--------------------presenter------------------*/
+        Presenter randomPoetryPresenter = new RandomPoetryPresenterImpl(this,new CrawlerImpl());
         randomPoetryPresenter.onProcess(null);
-        //设置上下联
+
+        /*--------------------InputTextView--------------*/
         inputEditText = findViewById(R.id.couplet);
         inputEditText.setOnEditorActionListener((v,actionID,keyEvent)->{
             String couplet = inputEditText.getText().toString();
@@ -85,15 +94,12 @@ public class ScrollingActivity extends AppCompatActivity implements Recommendati
         secondTextView = findViewById(R.id.first_couplet);
         firstTextView = findViewById(R.id.second_couplet);
 
+        /*--------------------句子------------------------*/
+        fromTextView = findViewById(R.id.from);
+        sentenceTextView = findViewById(R.id.sentence);
 
-        //点击监听
-        //TODO 启动别的页面
-        recommListView.setOnItemClickListener((AdapterView<?> arg0, View arg1, int arg2,
-                                               long arg3)->{
-            PoetryItem poetryItem = (PoetryItem) recommListView.getItemAtPosition(arg2);
-            Toast.makeText(ScrollingActivity.this,poetryItem.toString(),Toast.LENGTH_LONG).show();
-        });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -12,8 +12,7 @@ public class RandomPoetryPresenterImpl implements Presenter {
     private Crawler mCrawler;
     private Handler mHandler = new Handler();
 
-    @Override
-    public void onCreate(RecommendationView recommendationView,Crawler crawler) {
+    public RandomPoetryPresenterImpl(RecommendationView recommendationView,Crawler crawler) {
         this.mRecommendationView = recommendationView;
         this.mCrawler = crawler;
     }
