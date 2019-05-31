@@ -20,6 +20,7 @@ import com.lishi.adruino.randompoetry.ui.search.adapter.PoetryListViewAdapter;
 import com.lishi.adruino.randompoetry.item.PoetryItem;
 import com.lishi.adruino.randompoetry.ui.search.presenter.SearchPoetryPresenterImpl;
 import com.lishi.adruino.randompoetry.ui.search.view.SearchPoetryView;
+import com.lishi.adruino.randompoetry.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,6 +89,12 @@ public class SearchActivity extends AppCompatActivity implements SearchPoetryVie
             mPoetryListView.setSelection(0);
 
             SearchContent = this.mSearchView.getEditTextView().getText().toString();
+            //输入内容检查
+            if(!StringUtils.checkLegality(SearchContent)){
+                Toast.makeText(this,"请输入中文字符（。＾▽＾）",Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             this.mSearchView.addOneHistory(SearchContent);
             searched = false;
             this.mSearchPoetryPresenter.onProcess(null);
@@ -189,7 +196,7 @@ public class SearchActivity extends AppCompatActivity implements SearchPoetryVie
 
     @Override
     public void showFailedError(){
-        Toast.makeText(this,"failed to load poetry",Toast.LENGTH_LONG);
+        Toast.makeText(this,"加载失败＞﹏＜请重试",Toast.LENGTH_SHORT).show();
     }
 
     @Override
