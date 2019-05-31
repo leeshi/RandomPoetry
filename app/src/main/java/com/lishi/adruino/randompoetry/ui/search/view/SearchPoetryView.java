@@ -11,7 +11,6 @@ public interface SearchPoetryView {
     void setSearched();
     String getContent();
 
-    void clearPoetry();
     void showLoading();
     void hideLoading();
     void toMainActivity(List<PoetryItem> list);

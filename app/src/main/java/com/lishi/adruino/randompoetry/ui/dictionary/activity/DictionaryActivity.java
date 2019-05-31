@@ -96,7 +96,7 @@ public class DictionaryActivity extends AppCompatActivity implements MainPageVie
         mViewPager.getToolbar().setNavigationOnClickListener((view)->{
             DictionaryActivity.this.finish();
         });
-        
+
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
         myPresenter = new DetailedPoetryPresenterImpl(this,poetryPagerAdapter.getFragmentViewList(),new DetailCrawlerImpl());
         if(serial != null){

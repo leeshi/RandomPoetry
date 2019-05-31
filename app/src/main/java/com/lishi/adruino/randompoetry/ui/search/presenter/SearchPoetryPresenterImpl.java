@@ -2,13 +2,13 @@ package com.lishi.adruino.randompoetry.ui.search.presenter;
 
 
 import android.os.Handler;
+import android.widget.Toast;
 
 import com.lishi.adruino.randompoetry.item.PoetryItem;
-import com.lishi.adruino.randompoetry.model.Crawler;
 import com.lishi.adruino.randompoetry.model.OnLoadListener;
 import com.lishi.adruino.randompoetry.presenter.Presenter;
-import com.lishi.adruino.randompoetry.ui.main.view.RecommendationView;
-import com.lishi.adruino.randompoetry.ui.search.model.PoetryCrawler;
+import com.lishi.adruino.randompoetry.ui.search.activity.SearchActivity;
+import com.lishi.adruino.randompoetry.ui.search.model.PoetryCrawlerImpl;
 import com.lishi.adruino.randompoetry.ui.search.view.SearchPoetryView;
 
 import java.util.ArrayList;
@@ -16,15 +16,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SearchPoetryPresenter implements Presenter {
-    private SearchPoetryView searchPoetryView;
-    private PoetryCrawler poetryCrawler;
+public class SearchPoetryPresenterImpl implements Presenter {
+    private SearchActivity searchPoetryView;
+    private PoetryCrawlerImpl poetryCrawler;
     private Handler mHandler = new Handler();
 
     private List<PoetryItem> listAllPoetryItem = new ArrayList<>();
 
-    public SearchPoetryPresenter(SearchPoetryView searchPoetryView){
-        this.poetryCrawler = new PoetryCrawler();
+    public SearchPoetryPresenterImpl(SearchActivity searchPoetryView){
+        this.poetryCrawler = new PoetryCrawlerImpl();
         this.searchPoetryView = searchPoetryView;
     }
 
@@ -74,7 +74,10 @@ public class SearchPoetryPresenter implements Presenter {
 
             @Override
             public void loadOver(){
-                mHandler.post(()-> searchPoetryView.hideLoading());
+                mHandler.post(()-> {
+                    Toast.makeText(searchPoetryView,"没有更多了(+_+)?",Toast.LENGTH_SHORT).show();
+                    searchPoetryView.hideLoading();
+                });
             }
 
             @Override

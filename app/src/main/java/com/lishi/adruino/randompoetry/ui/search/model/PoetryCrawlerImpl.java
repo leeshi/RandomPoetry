@@ -13,11 +13,13 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class PoetryCrawler implements Crawler {
+public class PoetryCrawlerImpl implements Crawler {
     private final String mPoetryWebUrl = "https://so.gushiwen.org/search.aspx?";
     private int PageCount = 0;                  //当前搜索内容的总页数
     private int NowCount = 1;                   //当前搜索到的页数
@@ -62,7 +64,7 @@ public class PoetryCrawler implements Crawler {
                 Document doc = Jsoup.parse(conn.get().html());
                 Elements ListDiv = doc.getElementsByAttributeValue("class","sons");
 
-                //爬取不到任何诗词
+                //被限制搜索内容
                 if(ListDiv.isEmpty()){
                     System.out.println("内容加载结束");
                     searchListener.loadOver();
@@ -89,6 +91,10 @@ public class PoetryCrawler implements Crawler {
                 }
 
                 for(Element element:ListDiv){
+                    if(element.getElementsByAttributeValue("class","contson").size() == 0){
+                        searchListener.loadOver();
+                        return;
+                    }
                     Element contson = element.getElementsByAttributeValue("class","contson").get(0);
                     Element source = element.getElementsByAttributeValue("class","source").get(0);
                     Element title = element.getElementsByTag("b").get(0);
@@ -108,7 +114,6 @@ public class PoetryCrawler implements Crawler {
                 e.printStackTrace();
                 searchListener.loadFailed();
             }
-
         }).start();
     }
 }

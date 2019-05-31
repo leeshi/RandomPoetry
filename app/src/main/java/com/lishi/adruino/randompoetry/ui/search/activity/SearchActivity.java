@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -19,7 +18,7 @@ import com.lishi.adruino.randompoetry.R;
 import com.lishi.adruino.randompoetry.ui.dictionary.activity.DictionaryActivity;
 import com.lishi.adruino.randompoetry.ui.search.adapter.PoetryListViewAdapter;
 import com.lishi.adruino.randompoetry.item.PoetryItem;
-import com.lishi.adruino.randompoetry.ui.search.presenter.SearchPoetryPresenter;
+import com.lishi.adruino.randompoetry.ui.search.presenter.SearchPoetryPresenterImpl;
 import com.lishi.adruino.randompoetry.ui.search.view.SearchPoetryView;
 
 import java.util.ArrayList;
@@ -35,7 +34,7 @@ public class SearchActivity extends AppCompatActivity implements SearchPoetryVie
 
     private PoetryListViewAdapter mPoetryListViewAdapter;
 
-    private SearchPoetryPresenter mSearchPoetryPresenter = new SearchPoetryPresenter(this);
+    private SearchPoetryPresenterImpl mSearchPoetryPresenter = new SearchPoetryPresenterImpl(this);
 
 
     private String SearchContent;
@@ -86,6 +85,8 @@ public class SearchActivity extends AppCompatActivity implements SearchPoetryVie
 
 
         this.mSearchView.setOnSearchActionListener((v)->{
+            mPoetryListView.setSelection(0);
+
             SearchContent = this.mSearchView.getEditTextView().getText().toString();
             this.mSearchView.addOneHistory(SearchContent);
             searched = false;
@@ -159,11 +160,6 @@ public class SearchActivity extends AppCompatActivity implements SearchPoetryVie
      * 实现OnSearchListener接口
      */
     @Override
-    public void clearPoetry(){
-        //TODO
-    }
-
-    @Override
     public int getMode(){
         return mode % 3;
     }
@@ -198,14 +194,13 @@ public class SearchActivity extends AppCompatActivity implements SearchPoetryVie
 
     @Override
     public void showLoading(){
-        //TODO
         footerListView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading(){
-        //TODO
         footerListView.setVisibility(View.GONE);
+        //Toast.makeText(this,"加载完成(●ˇ∀ˇ●)",Toast.LENGTH_SHORT).show();
     }
 
     //将诗句传送到主界面
