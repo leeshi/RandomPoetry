@@ -7,11 +7,13 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 
 import com.lishi.adruino.randompoetry.R;
 import com.lishi.adruino.randompoetry.item.PoetryItem;
+import com.lishi.adruino.randompoetry.ui.dictionary.presenter.OnRecyclerItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +27,14 @@ import java.util.List;
  * **一个Presenter对应多个Adapter**
  */
 public class RecyclerViewPoetryPagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-    List<Object> contents;
+    private List<Object> contents;
     private final int mode;
     //每一个CardView对应一个TextView
-    List<TextView> listTextView = new ArrayList<>();
+    private List<TextView> listTextView = new ArrayList<>();
+    private RecyclerView recyclerView;
+
+    private OnRecyclerItemClickListener mOnItemClickListener;
+
     public RecyclerViewPoetryPagerAdapter(List<Object> contents,int mode) {
         this.contents = contents;
         this.mode = mode;
@@ -53,9 +59,7 @@ public class RecyclerViewPoetryPagerAdapter extends RecyclerView.Adapter<Recycle
         listTextView.add(tv1);
         listTextView.add(tv2);
 
-        return new RecyclerView.ViewHolder(view) {
-        };
-
+        return new RecyclerView.ViewHolder(view) {};
     }
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
@@ -118,5 +122,6 @@ public class RecyclerViewPoetryPagerAdapter extends RecyclerView.Adapter<Recycle
             }
         }
     }
+
 
 }

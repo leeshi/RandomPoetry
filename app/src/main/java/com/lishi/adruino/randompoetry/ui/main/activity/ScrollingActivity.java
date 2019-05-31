@@ -23,6 +23,7 @@ import com.lishi.adruino.randompoetry.presenter.Presenter;
 import com.lishi.adruino.randompoetry.ui.main.presenter.RandomPoetryPresenterImpl;
 import com.lishi.adruino.randompoetry.ui.main.view.RecommendationView;
 import com.lishi.adruino.randompoetry.ui.search.activity.SearchActivity;
+import com.lishi.adruino.randompoetry.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,13 +44,14 @@ public class ScrollingActivity extends AppCompatActivity implements Recommendati
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scrolling);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener((v) -> {
             Intent intent = new Intent();
-            intent.setClass(ScrollingActivity.this,SearchActivity.class);
+            intent.setClass(ScrollingActivity.this,DictionaryActivity.class);
             startActivity(intent);
             /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();*/
@@ -67,12 +69,16 @@ public class ScrollingActivity extends AppCompatActivity implements Recommendati
         //设置上下联
         inputEditText = findViewById(R.id.couplet);
         inputEditText.setOnEditorActionListener((v,actionID,keyEvent)->{
-            //TODO 先进行输入内容的检查
             String couplet = inputEditText.getText().toString();
-            inputEditText.clearFocus();
-            inputEditText.setText("");
-            randomPoetryPresenter.onProcess(couplet);
-            firstTextView.setText(couplet);
+            //进行内容合法性检查
+            if(StringUtils.checkLegality(couplet)) {
+                inputEditText.clearFocus();
+                inputEditText.setText("");
+                randomPoetryPresenter.onProcess(couplet);
+                firstTextView.setText(couplet);
+            }else{
+                Toast.makeText(ScrollingActivity.this,"只允许输入中文字符",Toast.LENGTH_SHORT).show();
+            }
             return false;
         });
 

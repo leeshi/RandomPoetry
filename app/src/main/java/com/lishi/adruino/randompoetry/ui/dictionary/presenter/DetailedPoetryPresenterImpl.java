@@ -2,11 +2,11 @@ package com.lishi.adruino.randompoetry.ui.dictionary.presenter;
 
 import android.os.Handler;
 
-import com.lishi.adruino.randompoetry.ui.dictionary.activity.DictionaryActivity;
 import com.lishi.adruino.randompoetry.item.PoetryItem;
 import com.lishi.adruino.randompoetry.model.Crawler;
 import com.lishi.adruino.randompoetry.model.OnLoadListener;
 import com.lishi.adruino.randompoetry.ui.dictionary.view.DetailedPoetryView;
+import com.lishi.adruino.randompoetry.ui.dictionary.view.MainPageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +16,15 @@ import java.util.List;
  */
 public class DetailedPoetryPresenterImpl implements DetailedPoetryPresenter {
     List<DetailedPoetryView> listAllFragmentView;
-    DictionaryActivity mainActivity;
+    MainPageView mainActivity;
     Crawler DetailCrawler;
     private Handler mHandler = new Handler();
 
+    //TODO 保存推荐,尽量使用Adapter
+    private List<Object> recommendation;
 
-    public DetailedPoetryPresenterImpl(DictionaryActivity mainActivity, List<DetailedPoetryView> listAllFragmentView, Crawler DetailCrawler){
+
+    public DetailedPoetryPresenterImpl(MainPageView mainActivity, List<DetailedPoetryView> listAllFragmentView, Crawler DetailCrawler){
         this.listAllFragmentView = listAllFragmentView;
         this.DetailCrawler = DetailCrawler;
         this.mainActivity = mainActivity;
@@ -83,6 +86,7 @@ public class DetailedPoetryPresenterImpl implements DetailedPoetryPresenter {
                         case 3:
                             mHandler.post(()->{
                                 //一共三个推荐
+                                recommendation = listData.subList(4,7);
                                 listAllFragmentView.get(3).toPoetryFragment(listData.subList(4,7));
                             });
                             continue;
@@ -106,5 +110,6 @@ public class DetailedPoetryPresenterImpl implements DetailedPoetryPresenter {
     @Override
     public void onItemClick(int position) {
         //TODO 获取点击到的信息
+        System.out.println(position);
     }
 }

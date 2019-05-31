@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.header.MaterialViewPagerHeaderDecorator;
 import com.lishi.adruino.randompoetry.R;
@@ -22,8 +21,6 @@ public class RecyclerViewPoetryFragment extends Fragment implements DetailedPoet
     public static Fragment newInstance(){return  new RecyclerViewPoetryFragment();}
     final List<Object> items = new ArrayList<>();
     private RecyclerViewPoetryPagerAdapter mViewPagerAdapter;
-
-    private TextView logo;
 
     RecyclerView mRecyclerView;
 
@@ -39,8 +36,8 @@ public class RecyclerViewPoetryFragment extends Fragment implements DetailedPoet
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mRecyclerView=view.findViewById(R.id.recyclerView);
-        //通过外部传参来设置item数量，然后获取各个item的textview
+        mRecyclerView = view.findViewById(R.id.recyclerView);
+        //通过外部传参来设置item数量，然后获取各个item的textView
         int ITEMS = getArguments().getInt("ITEMS");
         for (int i=0;i<ITEMS;i++){
             items.add(new Object());
@@ -71,16 +68,16 @@ public class RecyclerViewPoetryFragment extends Fragment implements DetailedPoet
 
     @Override
     public void showLoading() {
-
+        //TODO
     }
 
     @Override
     public void clearView() {
-
+        //TODO
     }
 
     @Override
     public void getMode() {
-
+        //TODO
     }
 }
