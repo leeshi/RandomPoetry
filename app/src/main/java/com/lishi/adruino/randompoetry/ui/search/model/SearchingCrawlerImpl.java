@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class PoetryCrawlerImpl implements Crawler {
+public class SearchingCrawlerImpl implements Crawler {
     private final String mPoetryWebUrl = "https://so.gushiwen.org/search.aspx?";
     private int PageCount = 0;                  //当前搜索内容的总页数
     private int NowCount = 1;                   //当前搜索到的页数

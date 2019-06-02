@@ -5,7 +5,7 @@ import com.lishi.adruino.randompoetry.item.PoetryItem;
 
 import java.util.List;
 
-public interface SearchPoetryView {
+public interface SearchingView {
     int getMode();
     boolean ifSearched();
     void setSearched();

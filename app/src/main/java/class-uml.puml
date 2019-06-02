@@ -1,0 +1,72 @@
+@startuml
+package presenter{
+interface Presenter{
+    void onResume();
+    void onDestroy();
+    void onItemClick(int position);
+    void onProcess(String loadOption);
+}
+interface OnLoadListener{
+    void loadSuccess(Object data);
+    void loadFailed();
+    void loadOver();
+    Object getLoadOption();
+}
+
+}
+
+class Activity{
+void onCreate(Bundle savedBundle);
+void onResume();
+void onStop();
+void onDestroy();
+}
+
+package view{
+interface View{
+Object getLoadArguments();
+void showLoading();
+void hideLoading();
+void toMainActivity(Object data);
+void showFailedError();
+}
+}
+
+Activity --|> View:implements
+package model{
+interface Crawler{
+    void search(OnLoadListener onLoadListener);
+}
+}
+Crawler <.. OnLoadListener
+
+Crawler <..> Presenter:Interact
+
+View <.> Presenter:Interact
+
+class PoetryItem{
+    public final String mContent;
+    public final String mTitle;
+    public final String mPoet;
+    public final String serial;
+}
+Crawler o- PoetryItem:contains
+
+/'package dictionary{
+class DetailCrawlerImpl
+class DetailPoetryPresenterImpl
+class MainPageView
+}
+
+package search{
+class SearchingCrawlerImpl
+class SearchingPresenterImpl
+class SearchingView
+}
+
+package main{
+class MainCrawlerImpl
+class MainPresenterImpl
+class RecommendationView
+}'/
+@enduml

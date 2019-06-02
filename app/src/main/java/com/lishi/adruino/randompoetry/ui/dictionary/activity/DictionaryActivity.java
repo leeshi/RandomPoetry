@@ -13,8 +13,9 @@ import com.lishi.adruino.randompoetry.R;
 import com.lishi.adruino.randompoetry.presenter.Presenter;
 import com.lishi.adruino.randompoetry.ui.dictionary.adapter.PoetryPagerAdapter;
 import com.lishi.adruino.randompoetry.ui.dictionary.model.DetailCrawlerImpl;
-import com.lishi.adruino.randompoetry.ui.dictionary.presenter.DetailedPoetryPresenterImpl;
+import com.lishi.adruino.randompoetry.ui.dictionary.presenter.DetailPoetryPresenterImpl;
 import com.lishi.adruino.randompoetry.ui.dictionary.view.MainPageView;
+import com.lishi.adruino.randompoetry.utils.ImageUrlUtils;
 
 
 import java.util.HashMap;
@@ -42,35 +43,25 @@ public class DictionaryActivity extends AppCompatActivity implements MainPageVie
 
         mapCardPerPage.put(0,1);
 
+        String[] Urls = ImageUrlUtils.getUrls();
         //添加监听
-        mViewPager.setMaterialViewPagerListener(new MaterialViewPager.Listener() {
-            @Override
-            public HeaderDesign getHeaderDesign(int page) {
+        mViewPager.setMaterialViewPagerListener((page)->{
                 switch (page) {
                     case 0:
                         return HeaderDesign.fromColorResAndUrl(
-                                R.color.blue,
-                                "http://upload.art.ifeng.com/2018/0621/1529553560153.jpg");
+                                R.color.blue, Urls[page]);
                     case 1:
                         return HeaderDesign.fromColorResAndUrl(
-                                R.color.green,
-                                "http://file.763g.com/tu/d/file/p/2015-05-21/pyollcav1m59446.jpg");
+                                R.color.green, Urls[page]);
                     case 2:
                         return HeaderDesign.fromColorResAndUrl(
-                                R.color.cyan,
-                                "https://images.shobserver.com/news/690_390/2017/7/14/c09bd564-ae0f-4c8b-90fe-06ece42c9486.jpg");
+                                R.color.cyan, Urls[page]);
                     case 3:
                         return HeaderDesign.fromColorResAndUrl(
-                                R.color.red,
-                                "http://img01.1sucai.com/170618/330772-1F61QFU045.jpg");
-                    case 4:
-                        return HeaderDesign.fromColorResAndUrl(
-                            R.color.lime,
-                            "http://www.tothemobile.com/wp-content/uploads/2014/07/original.jpg");
+                                R.color.red, Urls[page]);
                 }
                 return null;
-            }
-        });
+            });
 
         //添加toolbar
         Toolbar toolbar = mViewPager.getToolbar();
@@ -98,7 +89,7 @@ public class DictionaryActivity extends AppCompatActivity implements MainPageVie
         });
 
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
-        myPresenter = new DetailedPoetryPresenterImpl(this,poetryPagerAdapter.getFragmentViewList(),new DetailCrawlerImpl());
+        myPresenter = new DetailPoetryPresenterImpl(this,poetryPagerAdapter.getFragmentViewList(),new DetailCrawlerImpl());
         if(serial != null){
             myPresenter.onProcess(serial);
         }

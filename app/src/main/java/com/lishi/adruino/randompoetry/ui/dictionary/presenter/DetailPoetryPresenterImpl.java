@@ -15,7 +15,7 @@ import java.util.List;
 /*
  * 此处，一个Presenter对应多个View，在对象构造时，将所有View都保存下来
  */
-public class DetailedPoetryPresenterImpl implements Presenter {
+public class DetailPoetryPresenterImpl implements Presenter {
     List<DetailedPoetryView> listAllFragmentView;
     MainPageView mainActivity;
     Crawler DetailCrawler;
@@ -25,7 +25,7 @@ public class DetailedPoetryPresenterImpl implements Presenter {
     private List<Object> recommendation;
 
 
-    public DetailedPoetryPresenterImpl(MainPageView mainActivity, List<DetailedPoetryView> listAllFragmentView, Crawler DetailCrawler){
+    public DetailPoetryPresenterImpl(MainPageView mainActivity, List<DetailedPoetryView> listAllFragmentView, Crawler DetailCrawler){
         this.listAllFragmentView = listAllFragmentView;
         this.DetailCrawler = DetailCrawler;
         this.mainActivity = mainActivity;

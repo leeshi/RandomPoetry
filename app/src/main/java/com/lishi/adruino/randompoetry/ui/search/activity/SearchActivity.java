@@ -18,14 +18,14 @@ import com.lishi.adruino.randompoetry.R;
 import com.lishi.adruino.randompoetry.ui.dictionary.activity.DictionaryActivity;
 import com.lishi.adruino.randompoetry.ui.search.adapter.PoetryListViewAdapter;
 import com.lishi.adruino.randompoetry.item.PoetryItem;
-import com.lishi.adruino.randompoetry.ui.search.presenter.SearchPoetryPresenterImpl;
-import com.lishi.adruino.randompoetry.ui.search.view.SearchPoetryView;
+import com.lishi.adruino.randompoetry.ui.search.presenter.SearchingPresenterImpl;
+import com.lishi.adruino.randompoetry.ui.search.view.SearchingView;
 import com.lishi.adruino.randompoetry.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchActivity extends AppCompatActivity implements SearchPoetryView {
+public class SearchActivity extends AppCompatActivity implements SearchingView {
     private ListView mPoetryListView;
     private View footerListView;
     private km.lmy.searchview.SearchView mSearchView;
@@ -35,7 +35,7 @@ public class SearchActivity extends AppCompatActivity implements SearchPoetryVie
 
     private PoetryListViewAdapter mPoetryListViewAdapter;
 
-    private SearchPoetryPresenterImpl mSearchPoetryPresenter = new SearchPoetryPresenterImpl(this);
+    private SearchingPresenterImpl mSearchPoetryPresenter = new SearchingPresenterImpl(this);
 
 
     private String SearchContent;
@@ -47,7 +47,23 @@ public class SearchActivity extends AppCompatActivity implements SearchPoetryVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_poetry);
 
+        //是否有数据传入
+        //TODO 设置为模式
+        Intent intent = getIntent();
+        String sentence = intent.getStringExtra("sentence");
+        if(sentence != null){
+            mSearchPoetryPresenter.onProcess(sentence);
+        }
 
+        //init toolBar and button
+        initButTool();
+        //init ListView
+        initListView();
+        //init SearchView
+        initSearchView();
+    }
+
+    private void initButTool(){
         //init toolbar
         this.activityToolbar = findViewById(R.id.activity_toolbar);
         this.activityToolbar.setTitle(this.getTitle());
@@ -70,16 +86,9 @@ public class SearchActivity extends AppCompatActivity implements SearchPoetryVie
                     return;
             }
         });
-
-        //init ListView
-        initListView();
-
-        //init SearchView
-        initSearchView();
     }
 
-
-    public void initSearchView(){
+    private void initSearchView(){
         this.mSearchView = findViewById(R.id.searchView);
         List<String> HistoryList = new ArrayList<>();
         this.mSearchView.setNewHistoryList(HistoryList);
@@ -90,6 +99,10 @@ public class SearchActivity extends AppCompatActivity implements SearchPoetryVie
 
             SearchContent = this.mSearchView.getEditTextView().getText().toString();
             //输入内容检查
+            if(SearchContent.isEmpty()){
+                Toast.makeText(this,"空时什么呢（。＾▽＾）",Toast.LENGTH_SHORT).show();
+                return;
+            }
             if(!StringUtils.checkLegality(SearchContent)){
                 Toast.makeText(this,"请输入中文字符（。＾▽＾）",Toast.LENGTH_SHORT).show();
                 return;
@@ -115,7 +128,7 @@ public class SearchActivity extends AppCompatActivity implements SearchPoetryVie
         });
     }
 
-    public void initListView(){
+    private void initListView(){
         this.mPoetryListView = (ListView) findViewById(R.id.PoetryListView);
         this.mPoetryListView.setOnItemClickListener((parent,view,position,id)->{
             //启动详情页

@@ -7,12 +7,12 @@ import com.lishi.adruino.randompoetry.model.OnLoadListener;
 import com.lishi.adruino.randompoetry.presenter.Presenter;
 import com.lishi.adruino.randompoetry.ui.main.view.RecommendationView;
 
-public class RandomPoetryPresenterImpl implements Presenter {
+public class MainPresenterImpl implements Presenter {
     private RecommendationView mRecommendationView;
     private Crawler mCrawler;
     private Handler mHandler = new Handler();
 
-    public RandomPoetryPresenterImpl(RecommendationView recommendationView,Crawler crawler) {
+    public MainPresenterImpl(RecommendationView recommendationView, Crawler crawler) {
         this.mRecommendationView = recommendationView;
         this.mCrawler = crawler;
     }

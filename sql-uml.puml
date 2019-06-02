@@ -1,0 +1,27 @@
+@startuml
+
+== UI线程处理阶段 ==
+[o-> View:用户操作
+activate View
+View -> Presenter: 操作触发事件
+activate Presenter
+Presenter -> OnLoadListener: 新建匿名类实现接口
+activate OnLoadListener
+Presenter --> View: 函数回调，显示[正在加载]
+View <--> OnLoadListener: 函数回调，请求用户(UI线程)输入的相关参数
+== 数据处理阶段 ==
+Presenter -[#blue]> Model: 新建线程，新建Model对象开始进行网络访问
+deactivate Presenter
+activate Model
+
+
+Model -[#blue]> Model:进行网络请求
+Model --[#blue]> OnLoadListener:加载结束，函数回调
+deactivate Model
+== 界面更新阶段 ==
+OnLoadListener -> View:将数据传回UI线程用于界面更新
+OnLoadListener -> View:显示[加载完成]
+View x<--> OnLoadListener:显示错误信息[加载失败]
+deactivate OnLoadListener
+
+@enduml

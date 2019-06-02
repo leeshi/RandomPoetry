@@ -14,8 +14,8 @@ import org.jsoup.nodes.Document;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class CrawlerImpl implements Crawler {
-    private final String tarUrl = "http://10.21.184.37:8888";
+public class MainCrawlerImpl implements Crawler {
+    private final String tarUrl = "http://10.122.195.45:8888";
 
     @Override
     public void search(OnLoadListener onLoadListener) {

@@ -8,23 +8,22 @@ import com.lishi.adruino.randompoetry.item.PoetryItem;
 import com.lishi.adruino.randompoetry.model.OnLoadListener;
 import com.lishi.adruino.randompoetry.presenter.Presenter;
 import com.lishi.adruino.randompoetry.ui.search.activity.SearchActivity;
-import com.lishi.adruino.randompoetry.ui.search.model.PoetryCrawlerImpl;
-import com.lishi.adruino.randompoetry.ui.search.view.SearchPoetryView;
+import com.lishi.adruino.randompoetry.ui.search.model.SearchingCrawlerImpl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SearchPoetryPresenterImpl implements Presenter {
+public class SearchingPresenterImpl implements Presenter {
     private SearchActivity searchPoetryView;
-    private PoetryCrawlerImpl poetryCrawler;
+    private SearchingCrawlerImpl poetryCrawler;
     private Handler mHandler = new Handler();
 
     private List<PoetryItem> listAllPoetryItem = new ArrayList<>();
 
-    public SearchPoetryPresenterImpl(SearchActivity searchPoetryView){
-        this.poetryCrawler = new PoetryCrawlerImpl();
+    public SearchingPresenterImpl(SearchActivity searchPoetryView){
+        this.poetryCrawler = new SearchingCrawlerImpl();
         this.searchPoetryView = searchPoetryView;
     }
 

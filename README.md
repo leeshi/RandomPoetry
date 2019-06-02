@@ -14,6 +14,6 @@
 
 ## 引用的开源项目
 
-- [https://github.com/wb14123/seq2seq-couplet](seq2seq-couplet)
-- [https://github.com/florent37/MaterialViewPager](MaterialViewPager)
-- [https://github.com/limuyang2/CardSearchView](CardSearchView)
+- [seq2seq-couplet）](https://github.com/wb14123/seq2seq-couplet）
+- [MaterialViewPager](https://github.com/florent37/MaterialViewPager)
+- [CardSearchView](https://github.com/limuyang2/CardSearchView)

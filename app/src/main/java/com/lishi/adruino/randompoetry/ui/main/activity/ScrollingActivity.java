@@ -16,11 +16,10 @@ import android.widget.Toast;
 
 import com.lishi.adruino.randompoetry.R;
 import com.lishi.adruino.randompoetry.ui.main.adapter.RecommendationListViewAdapter;
-import com.lishi.adruino.randompoetry.ui.dictionary.activity.DictionaryActivity;
 import com.lishi.adruino.randompoetry.item.PoetryItem;
-import com.lishi.adruino.randompoetry.ui.main.model.CrawlerImpl;
+import com.lishi.adruino.randompoetry.ui.main.model.MainCrawlerImpl;
 import com.lishi.adruino.randompoetry.presenter.Presenter;
-import com.lishi.adruino.randompoetry.ui.main.presenter.RandomPoetryPresenterImpl;
+import com.lishi.adruino.randompoetry.ui.main.presenter.MainPresenterImpl;
 import com.lishi.adruino.randompoetry.ui.main.view.RecommendationView;
 import com.lishi.adruino.randompoetry.ui.search.activity.SearchActivity;
 import com.lishi.adruino.randompoetry.utils.StringUtils;
@@ -72,7 +71,7 @@ public class ScrollingActivity extends AppCompatActivity implements Recommendati
         });
 
         /*--------------------presenter------------------*/
-        Presenter randomPoetryPresenter = new RandomPoetryPresenterImpl(this,new CrawlerImpl());
+        Presenter randomPoetryPresenter = new MainPresenterImpl(this,new MainCrawlerImpl());
         randomPoetryPresenter.onProcess(null);
 
         /*--------------------InputTextView--------------*/
