@@ -44,10 +44,10 @@ public class MainCrawlerImpl implements Crawler {
                 else{
                     Connection conn = Jsoup.connect(tarUrl).ignoreContentType(true).timeout(3000);
                     String couplet = (String)onLoadListener.getLoadOption();
-                    Document doc = Jsoup.parse(conn.data("data",couplet).post().html());
+                    Document doc = Jsoup.parse(conn.data("couplet",couplet).post().html());
 
                     JSONObject jsonObject = new JSONObject(doc.text());
-                    onLoadListener.loadSuccess(jsonObject.getString("nextcouplet"));
+                    onLoadListener.loadSuccess(jsonObject.getString("next_couplet"));
                 }
             }catch (IOException e){
                 e.printStackTrace();

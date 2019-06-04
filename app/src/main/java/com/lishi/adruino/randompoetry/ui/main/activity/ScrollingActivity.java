@@ -83,7 +83,8 @@ public class ScrollingActivity extends AppCompatActivity implements Recommendati
                 inputEditText.clearFocus();
                 inputEditText.setText("");
                 randomPoetryPresenter.onProcess(couplet);
-                firstTextView.setText(couplet);
+                firstTextView.setText("上联：" + couplet);
+                secondTextView.setText("");
             }else{
                 Toast.makeText(ScrollingActivity.this,"只允许输入中文字符",Toast.LENGTH_SHORT).show();
             }
@@ -126,17 +127,17 @@ public class ScrollingActivity extends AppCompatActivity implements Recommendati
 
     @Override
     public void showLoading() {
-        Toast.makeText(this,"Loading",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"加载中",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showFailedError() {
-        Toast.makeText(this,"Failed to connect!",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"加载失败≡(▔﹏▔)≡",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void hideLoading() {
-        Toast.makeText(this,"Loading finish",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"加载结束(●'◡'●)",Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -154,7 +155,7 @@ public class ScrollingActivity extends AppCompatActivity implements Recommendati
             fromTextView.setText("————" + listData.get(listData.size() - 1).getPoet());
             sentenceTextView.setText(listData.get(listData.size() - 1).getContent());
         }else if(String.class.isInstance(data)){
-            secondTextView.setText((String)data);
+            secondTextView.setText("下联：" + (String)data);
         }
     }
 }

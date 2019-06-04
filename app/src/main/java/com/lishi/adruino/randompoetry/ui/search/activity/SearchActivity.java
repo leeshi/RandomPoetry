@@ -47,6 +47,13 @@ public class SearchActivity extends AppCompatActivity implements SearchingView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_poetry);
 
+        //init toolBar and button
+        initButTool();
+        //init ListView
+        initListView();
+        //init SearchView
+        initSearchView();
+
         //是否有数据传入
         //TODO 设置为模式
         Intent intent = getIntent();
@@ -55,12 +62,6 @@ public class SearchActivity extends AppCompatActivity implements SearchingView {
             mSearchPoetryPresenter.onProcess(sentence);
         }
 
-        //init toolBar and button
-        initButTool();
-        //init ListView
-        initListView();
-        //init SearchView
-        initSearchView();
     }
 
     private void initButTool(){

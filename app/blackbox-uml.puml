@@ -1,0 +1,31 @@
+@startuml
+
+package "终端"{
+[STM32]
+[Jetson]
+}
+actor 使用者
+使用者 -up-> [STM32]:人机交互
+package "传感器单元" {
+[传感器组合]
+}
+[STM32] -up-> [传感器组合]:访问数据
+package "Web监控管理平台" {
+[Tomcat应用服务器]
+}
+
+database "数据库服务"{
+package "数据库应用" {
+[MySQL]
+}
+package "数据帧"{
+[运行状态信息]
+}
+[MySQL] -left-> [运行状态信息]:增删查改
+}
+
+actor 管理员
+管理员 -up-> [Tomcat应用服务器]:HTTP
+[Tomcat应用服务器] -> [MySQL]:访问与存储
+[Tomcat应用服务器] <-> [STM32]:HTTP:控制与数据上传
+@enduml
