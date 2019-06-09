@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
@@ -102,5 +103,9 @@ public class DictionaryActivity extends AppCompatActivity implements MainPageVie
     public void toMainActivity(String mainTitle) {
         TextView logo = mViewPager.findViewById(R.id.logo_white);
         logo.setText(mainTitle);
+    }
+    @Override
+    public void showFailedError(){
+        Toast.makeText(this, "加载失败T.T请检查网络", Toast.LENGTH_SHORT).show();
     }
 }

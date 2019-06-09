@@ -48,6 +48,7 @@ public class DetailPoetryPresenterImpl implements Presenter {
             @Override
             public void loadFailed() {
                 //TODO 使用另一个View进行操作，需要把Fragment都设置为GONE
+                mHandler.post(()->mainActivity.showFailedError());
             }
 
             /*
